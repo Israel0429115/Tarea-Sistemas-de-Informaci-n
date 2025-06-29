@@ -1,0 +1,53 @@
+[2025-06-29T20:01:16.153+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [queued]>
+[2025-06-29T20:01:16.170+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [queued]>
+[2025-06-29T20:01:16.172+0000] {taskinstance.py:2170} INFO - Starting attempt 6 of 7
+[2025-06-29T20:01:16.197+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): cargar_dim_producto> on 2025-06-29 19:41:16.004045+00:00
+[2025-06-29T20:01:16.204+0000] {standard_task_runner.py:60} INFO - Started process 436 to run task
+[2025-06-29T20:01:16.209+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'superstore_etl_workflow', 'cargar_dim_producto', 'manual__2025-06-29T19:41:16.004045+00:00', '--job-id', '18', '--raw', '--subdir', 'DAGS_FOLDER/superstore_etl_dag.py', '--cfg-path', '/tmp/tmp1abtipm2']
+[2025-06-29T20:01:16.214+0000] {standard_task_runner.py:88} INFO - Job 18: Subtask cargar_dim_producto
+[2025-06-29T20:01:16.300+0000] {task_command.py:423} INFO - Running <TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [running]> on host 85c12c2be069
+[2025-06-29T20:01:16.426+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='tu_nombre' AIRFLOW_CTX_DAG_ID='superstore_etl_workflow' AIRFLOW_CTX_TASK_ID='cargar_dim_producto' AIRFLOW_CTX_EXECUTION_DATE='2025-06-29T19:41:16.004045+00:00' AIRFLOW_CTX_TRY_NUMBER='6' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-06-29T19:41:16.004045+00:00'
+[2025-06-29T20:01:16.428+0000] {logging_mixin.py:188} INFO - Iniciando ETL para la dimensión de productos desde Global_Superstore2.csv...
+[2025-06-29T20:01:31.711+0000] {logging_mixin.py:188} INFO - Se extrajeron 51290 filas del archivo de origen.
+[2025-06-29T20:01:31.712+0000] {logging_mixin.py:188} INFO - Transformando datos para d_producto...
+[2025-06-29T20:01:31.723+0000] {logging_mixin.py:188} INFO - Se crearon 10292 registros únicos para d_producto.
+[2025-06-29T20:01:31.724+0000] {logging_mixin.py:188} INFO - Cargando datos a BigQuery en la tabla d_producto...
+[2025-06-29T20:01:33.919+0000] {logging_mixin.py:188} INFO - Error al cargar datos a BigQuery: 403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/tarea-sistemas-proceso-etl/jobs?uploadType=multipart: Access Denied: Dataset tarea-sistemas-proceso-etl:dwh_superstore: Permission bigquery.tables.create denied on dataset tarea-sistemas-proceso-etl:dwh_superstore (or it may not exist).
+[2025-06-29T20:01:33.920+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/bigquery/client.py", line 2491, in load_table_from_file
+    response = self._do_multipart_upload(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/bigquery/client.py", line 3046, in _do_multipart_upload
+    response = upload.transmit(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/resumable_media/requests/upload.py", line 153, in transmit
+    return _request_helpers.wait_and_retry(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/resumable_media/requests/_request_helpers.py", line 155, in wait_and_retry
+    response = func()
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/resumable_media/requests/upload.py", line 149, in retriable_request
+    self._process_response(result)
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/resumable_media/_upload.py", line 125, in _process_response
+    _helpers.require_status_code(response, (http.client.OK,), self._get_status_code)
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/resumable_media/_helpers.py", line 108, in require_status_code
+    raise common.InvalidResponse(
+google.resumable_media.common.InvalidResponse: ('Request failed with status code', 403, 'Expected one of', 200)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/superstore_etl_dag.py", line 80, in etl_dim_producto
+    job = bigquery_client.load_table_from_dataframe(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/bigquery/client.py", line 2727, in load_table_from_dataframe
+    return self.load_table_from_file(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/bigquery/client.py", line 2495, in load_table_from_file
+    raise exceptions.from_http_response(exc.response)
+google.api_core.exceptions.Forbidden: 403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/tarea-sistemas-proceso-etl/jobs?uploadType=multipart: Access Denied: Dataset tarea-sistemas-proceso-etl:dwh_superstore: Permission bigquery.tables.create denied on dataset tarea-sistemas-proceso-etl:dwh_superstore (or it may not exist).
+[2025-06-29T20:01:33.933+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=superstore_etl_workflow, task_id=cargar_dim_producto, execution_date=20250629T194116, start_date=20250629T200116, end_date=20250629T200133
+[2025-06-29T20:01:33.948+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 18 for task cargar_dim_producto (403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/tarea-sistemas-proceso-etl/jobs?uploadType=multipart: Access Denied: Dataset tarea-sistemas-proceso-etl:dwh_superstore: Permission bigquery.tables.create denied on dataset tarea-sistemas-proceso-etl:dwh_superstore (or it may not exist).; 436)
+[2025-06-29T20:01:33.986+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-06-29T20:01:34.008+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

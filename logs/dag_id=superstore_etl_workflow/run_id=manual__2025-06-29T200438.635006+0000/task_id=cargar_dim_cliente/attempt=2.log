@@ -1,0 +1,19 @@
+[2025-06-29T20:32:22.183+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_cliente manual__2025-06-29T20:04:38.635006+00:00 [queued]>
+[2025-06-29T20:32:22.194+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_cliente manual__2025-06-29T20:04:38.635006+00:00 [queued]>
+[2025-06-29T20:32:22.194+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 3
+[2025-06-29T20:32:22.211+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): cargar_dim_cliente> on 2025-06-29 20:04:38.635006+00:00
+[2025-06-29T20:32:22.217+0000] {standard_task_runner.py:60} INFO - Started process 856 to run task
+[2025-06-29T20:32:22.221+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'superstore_etl_workflow', 'cargar_dim_cliente', 'manual__2025-06-29T20:04:38.635006+00:00', '--job-id', '32', '--raw', '--subdir', 'DAGS_FOLDER/superstore_etl_dag.py', '--cfg-path', '/tmp/tmph9i_5dzb']
+[2025-06-29T20:32:22.224+0000] {standard_task_runner.py:88} INFO - Job 32: Subtask cargar_dim_cliente
+[2025-06-29T20:32:22.284+0000] {task_command.py:423} INFO - Running <TaskInstance: superstore_etl_workflow.cargar_dim_cliente manual__2025-06-29T20:04:38.635006+00:00 [running]> on host 85c12c2be069
+[2025-06-29T20:32:22.389+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='tu_nombre' AIRFLOW_CTX_DAG_ID='superstore_etl_workflow' AIRFLOW_CTX_TASK_ID='cargar_dim_cliente' AIRFLOW_CTX_EXECUTION_DATE='2025-06-29T20:04:38.635006+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-06-29T20:04:38.635006+00:00'
+[2025-06-29T20:32:22.393+0000] {logging_mixin.py:188} INFO - Iniciando ETL para la dimensión de clientes desde Global_Superstore2.csv...
+[2025-06-29T20:32:34.938+0000] {logging_mixin.py:188} INFO - Se extrajeron 51290 filas del archivo de origen.
+[2025-06-29T20:32:34.939+0000] {logging_mixin.py:188} INFO - Transformando datos para d_cliente...
+[2025-06-29T20:32:34.947+0000] {logging_mixin.py:188} INFO - Se crearon 1590 registros únicos para d_cliente.
+[2025-06-29T20:32:34.947+0000] {logging_mixin.py:188} INFO - Cargando datos a BigQuery en la tabla d_cliente...
+[2025-06-29T20:32:38.411+0000] {logging_mixin.py:188} INFO - Carga completada. Se cargaron 1590 filas en la tabla tarea-sistemas-proceso-etl.dwh_superstore.d_cliente.
+[2025-06-29T20:32:38.412+0000] {python.py:201} INFO - Done. Returned value was: None
+[2025-06-29T20:32:38.425+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=superstore_etl_workflow, task_id=cargar_dim_cliente, execution_date=20250629T200438, start_date=20250629T203222, end_date=20250629T203238
+[2025-06-29T20:32:38.485+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-06-29T20:32:38.513+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

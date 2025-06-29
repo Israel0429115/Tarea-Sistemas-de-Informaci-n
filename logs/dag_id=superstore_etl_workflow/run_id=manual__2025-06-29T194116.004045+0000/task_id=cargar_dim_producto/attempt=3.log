@@ -1,0 +1,26 @@
+[2025-06-29T19:51:25.293+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [queued]>
+[2025-06-29T19:51:25.304+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [queued]>
+[2025-06-29T19:51:25.304+0000] {taskinstance.py:2170} INFO - Starting attempt 3 of 4
+[2025-06-29T19:51:25.325+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): cargar_dim_producto> on 2025-06-29 19:41:16.004045+00:00
+[2025-06-29T19:51:25.330+0000] {standard_task_runner.py:60} INFO - Started process 313 to run task
+[2025-06-29T19:51:25.334+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'superstore_etl_workflow', 'cargar_dim_producto', 'manual__2025-06-29T19:41:16.004045+00:00', '--job-id', '15', '--raw', '--subdir', 'DAGS_FOLDER/superstore_etl_dag.py', '--cfg-path', '/tmp/tmpu0gi42jd']
+[2025-06-29T19:51:25.338+0000] {standard_task_runner.py:88} INFO - Job 15: Subtask cargar_dim_producto
+[2025-06-29T19:51:25.400+0000] {task_command.py:423} INFO - Running <TaskInstance: superstore_etl_workflow.cargar_dim_producto manual__2025-06-29T19:41:16.004045+00:00 [running]> on host 85c12c2be069
+[2025-06-29T19:51:25.499+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='tu_nombre' AIRFLOW_CTX_DAG_ID='superstore_etl_workflow' AIRFLOW_CTX_TASK_ID='cargar_dim_producto' AIRFLOW_CTX_EXECUTION_DATE='2025-06-29T19:41:16.004045+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-06-29T19:41:16.004045+00:00'
+[2025-06-29T19:51:25.502+0000] {logging_mixin.py:188} INFO - Iniciando ETL para la dimensión de productos desde Global_Superstore2.csv...
+[2025-06-29T19:51:38.254+0000] {logging_mixin.py:188} INFO - Error al leer el archivo de GCS: 'utf-8' codec can't decode byte 0xe1 in position 6145: invalid continuation byte
+[2025-06-29T19:51:38.254+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/superstore_etl_dag.py", line 40, in etl_dim_producto
+    content = blob.download_as_string().decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe1 in position 6145: invalid continuation byte
+[2025-06-29T19:51:38.264+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=superstore_etl_workflow, task_id=cargar_dim_producto, execution_date=20250629T194116, start_date=20250629T195125, end_date=20250629T195138
+[2025-06-29T19:51:38.277+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 15 for task cargar_dim_producto ('utf-8' codec can't decode byte 0xe1 in position 6145: invalid continuation byte; 313)
+[2025-06-29T19:51:38.313+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-06-29T19:51:38.334+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
